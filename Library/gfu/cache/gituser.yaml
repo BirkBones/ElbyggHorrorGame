@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.spoiledcat.git.ui:Unity.VersionControl.Git:GitUserCache
   cacheType: 8
-  lastUpdatedAtString: 2024-10-12T14:37:43.458+02:00
-  initializedAtString: 2024-10-12T14:37:43.453+02:00
-  gitName: "Birk Simen Geitanger B\xF8nes"
+  lastUpdatedAtString: 2024-10-12T14:56:47.539+02:00
+  initializedAtString: 2024-10-12T14:56:47.536+02:00
+  gitName: Birk Bones
   gitEmail: hallowenbirk@gmail.com

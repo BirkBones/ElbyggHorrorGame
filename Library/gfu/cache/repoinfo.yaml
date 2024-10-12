@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.spoiledcat.git.ui:Unity.VersionControl.Git:RepositoryInfoCache
   cacheType: 1
-  lastUpdatedAtString: 2024-10-12T14:53:42.104+02:00
+  lastUpdatedAtString: 2024-10-12T14:57:52.667+02:00
   initializedAtString: 2024-10-12T14:53:42.104+02:00
   currentGitRemote:
     name: origin
