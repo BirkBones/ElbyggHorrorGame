@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.spoiledcat.git.ui:Unity.VersionControl.Git:GitStatusCache
   cacheType: 6
-  lastUpdatedAtString: 2024-10-12T15:10:08.026+02:00
+  lastUpdatedAtString: 2024-10-12T15:21:54.453+02:00
   initializedAtString: 2024-10-12T14:53:47.014+02:00
   entries:
   - path: .gitignore
@@ -21,8 +21,8 @@ MonoBehaviour:
       horror game\.gitignore
     projectPath: .gitignore
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\branches.yaml
     fullPath: C:\Users\hallo\OneDrive\Skrivebord\Fag\Koding\Elsys skrekkspill\Elbygg
       horror game\Library\gfu\cache\branches.yaml
@@ -58,13 +58,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\gituser.yaml
-    fullPath: C:\Users\hallo\OneDrive\Skrivebord\Fag\Koding\Elsys skrekkspill\Elbygg
-      horror game\Library\gfu\cache\gituser.yaml
-    projectPath: Library\gfu\cache\gituser.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\gfu\cache\repoinfo.yaml
     fullPath: C:\Users\hallo\OneDrive\Skrivebord\Fag\Koding\Elsys skrekkspill\Elbygg
       horror game\Library\gfu\cache\repoinfo.yaml
@@ -72,17 +65,3 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: ProjectSettings\SceneTemplateSettings.json
-    fullPath: C:\Users\hallo\OneDrive\Skrivebord\Fag\Koding\Elsys skrekkspill\Elbygg
-      horror game\ProjectSettings\SceneTemplateSettings.json
-    projectPath: ProjectSettings\SceneTemplateSettings.json
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Unity.gitignore
-    fullPath: C:\Users\hallo\OneDrive\Skrivebord\Fag\Koding\Elsys skrekkspill\Elbygg
-      horror game\Unity.gitignore
-    projectPath: Unity.gitignore
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5

@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: com.spoiledcat.git.ui:Unity.VersionControl.Git:BranchesCache
   cacheType: 2
-  lastUpdatedAtString: 2024-10-12T15:09:30.369+02:00
+  lastUpdatedAtString: 2024-10-12T15:21:03.518+02:00
   initializedAtString: 2024-10-12T14:56:30.802+02:00
   localBranches:
   - name: master
     tracking: origin/master
-  remoteBranches: []
+  remoteBranches:
+  - name: origin/master
+    tracking: '[None]'
   remotes:
   - name: origin
     url: https://github.com/BirkBones/ElbyggHorrorGame.git
@@ -40,9 +42,15 @@ MonoBehaviour:
     keys:
     - origin
     subKeys:
-    - Values: []
+    - Values:
+      - master
     subKeyValues:
-    - Values: []
+    - Values:
+      - name: master
+        remote:
+          name: origin
+          url: https://github.com/BirkBones/ElbyggHorrorGame.git
+        trackingBranch: 
   configRemotes:
     keys:
     - origin
