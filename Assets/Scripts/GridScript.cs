@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Grid : MonoBehaviour
     
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+
+    public List<Node> path;
+
 
     void Start(){
         nodeDiameter = nodeRadius * 2;
@@ -28,12 +32,36 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++){
                 Vector3 worldpoint = worldbottomleft + Vector3.right * (x * nodeDiameter + nodeRadius)
                 + Vector3.forward * (y*nodeDiameter + nodeRadius);
+                //woops : this might have to get changed if the walkable surface is not flat.
+                // OR : just move the script a little over nodeDiameter over the surface.
+                //nevermind, the usual ground wont count since it doesnt have the unwalkablemask.
+                //will still leave this comment here thou :P
                 bool walkable = !(Physics.CheckSphere(worldpoint, nodeRadius,unwalkableMask));
-                grid[x,y] = new Node(walkable, worldpoint);
+                grid[x,y] = new Node(walkable, worldpoint, x, y);
             }
         
     }
     }
+
+    public List<Node> GetNeighbours(Node n){
+            List<Node> Neighbours = new List<Node>();
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (!(x == 0 && y == 0)) {
+                        int checkX = x + n.xVal;
+                        int checkY = y + n.yVal;
+                        if (checkX >= 0 && checkY >= 0 && checkX < gridSizeX && checkY < gridSizeY) {
+
+                            Neighbours.Add(grid[checkX,checkY]);
+
+                        }
+
+
+                    }
+                }
+            }
+        return Neighbours;
+        }
     void OnDrawGizmos(){
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
         if (grid!=null){
@@ -43,12 +71,20 @@ public class Grid : MonoBehaviour
                 if (PlayerNode == n){
                     Gizmos.color = Color.cyan;
                 }
+                if (path != null)
+                {
+                    if (path.Contains(n))
+                    {
+                        Gizmos.color = Color.black;
+                    }
+                }
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * nodeDiameter*0.9f);
         
         }   
 
     }
 }
+
     // This function might fuck up later when moving the arena
     public Node NodeFromWorldPoint(Vector3 worldpos){
         //WOOPS : here the y coordinate represents the ground, not the height.
