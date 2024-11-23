@@ -4,19 +4,24 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
+    public bool OnlyDisplayPathGizmos;
+
     public LayerMask unwalkableMask;
     public Transform PlayerPos;
-    public Vector2 gridWorldSize; //holds the size of the grid in meters x meters
+    public Vector2 gridWorldSize; //holds the size of the grid in unity units (aka what you could look at as meters)
     public float nodeRadius; // the radius for the nodes, aka half the sidelength of the square
-    Node[,] grid; // grid-array
+    Node[,] grid; // grid-array holding all the nodes
 
     
     float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    int gridSizeX, gridSizeY; //Holds the size of the grid in indices x indices
 
     public List<Node> path;
-
-
+    public int MaxSize {
+        get {
+            return gridSizeX * gridSizeY;
+        }
+    }
     void Start(){
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -26,7 +31,7 @@ public class Grid : MonoBehaviour
 
     void CreateGrid() {
         grid = new Node[gridSizeX,gridSizeY];
-        Vector3 worldbottomleft = transform.position - Vector3.right * gridWorldSize.x / 2 
+        Vector3 worldbottomleft = transform.position - Vector3.right * gridWorldSize.x / 2 //worldbottomleft holds the most left lower position
         - Vector3.forward * gridWorldSize.y / 2;
         for (int x = 0; x < gridSizeX; x++){
             for (int y = 0; y < gridSizeY; y++){
@@ -50,13 +55,10 @@ public class Grid : MonoBehaviour
                     if (!(x == 0 && y == 0)) {
                         int checkX = x + n.xVal;
                         int checkY = y + n.yVal;
-                        if (checkX >= 0 && checkY >= 0 && checkX < gridSizeX && checkY < gridSizeY) {
+                        if (checkX >= 0 && checkY >= 0 && checkX < gridSizeX && checkY < gridSizeY) { //Making sure the wanted index is inside of the grid
 
-                            Neighbours.Add(grid[checkX,checkY]);
-
+                            Neighbours.Add(grid[checkX,checkY]); 
                         }
-
-
                     }
                 }
             }
@@ -64,35 +66,52 @@ public class Grid : MonoBehaviour
         }
     void OnDrawGizmos(){
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+        if (OnlyDisplayPathGizmos){
+            if (path != null){
+                foreach (Node n in path){
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * nodeDiameter*0.9f);
+
+                }
+            }
+        }
+        else {
         if (grid!=null){
             Node PlayerNode = NodeFromWorldPoint(PlayerPos.position);
             foreach (Node n in grid){
                 Gizmos.color = (n.walkable)?(Color.white):(Color.red);
                 if (PlayerNode == n){
-                    Gizmos.color = Color.cyan;
+                    Gizmos.color = Color.magenta;
                 }
-                if (path != null)
-                {
-                    if (path.Contains(n))
+                else {
+                    if (path != null)
                     {
-                        Gizmos.color = Color.black;
+                        if (path.Contains(n))
+                        {
+                            Gizmos.color = Color.black;
+                        }
                     }
                 }
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * nodeDiameter*0.9f);
-        
-        }   
 
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * nodeDiameter*0.9f);
+            }
+        }  
     }
-}
+    
+    }
 
     // This function might fuck up later when moving the arena
     public Node NodeFromWorldPoint(Vector3 worldpos){
         //WOOPS : here the y coordinate represents the ground, not the height.
         float percX = Mathf.Clamp01(((worldpos.x - transform.position.x) + gridWorldSize.x / 2) / (gridWorldSize.x)); // worldpos.x - transform.x is the local position, that will say this will remain constant even if the arena along with all objects are moved by a distance.
         float percY = Mathf.Clamp01(((worldpos.z - transform.position.z) + gridWorldSize.y / 2) / (gridWorldSize.y));
+        //Note that the + gridworldsize.x / 2 makes it so worldpos = (0,0) gets the middle index. 
 
         int indX = Mathf.RoundToInt(percX * (gridSizeX-1));
         int indY = Mathf.RoundToInt(percY * (gridSizeY-1));
         return grid[indX,indY];
     } 
 }
+
+
+    
